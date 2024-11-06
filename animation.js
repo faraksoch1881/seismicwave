@@ -73,7 +73,7 @@ function drawGraph(oX, oY, xN, yN, xAxisTitle, yAxisTitle) {
   let x2 = oX + xGap;
   for (let v = 0; v <= yN; v++) {
     let y1, y2;
-    y1 = y2 = map(v, 0, yN, oY - gH, oY); // Invert by switching the map range
+    y1 = y2 = map(v, 0, yN, oY , oY- gH); // Invert by switching the map range
     line(x1, y1, x2, y2);
     // y-axis labels
     textAlign(RIGHT, CENTER);
@@ -163,7 +163,7 @@ function drawBlueArrowheads() {
  for (let i = 0; i < blueIntersections.length; i++) {
   let point = blueIntersections[i];
     // Only draw arrowheads after the fifth intersection point for the red line
-    if (i >= 0) {
+    if (i >= 2) {
       push();
       translate(point.x + 10, point.y - 10); // Move to intersection point
 
@@ -172,7 +172,7 @@ function drawBlueArrowheads() {
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill(0); // Black color for the shape
+      fill("blue"); // Black color for the shape
 
 beginShape();
   vertex(-9, -9);
@@ -200,7 +200,7 @@ endShape(CLOSE);
 
 
 
-fill(0)
+ fill("blue"); 
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -210,7 +210,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
-fill(0)
+ fill("blue"); 
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
@@ -240,16 +240,16 @@ function drawRedArrowheads() {
     let point = redIntersections[i];
 
     // Only draw arrowheads after the fifth intersection point for the red line
-    if (i >= 5) {
+    if (i >= 8) {
       push();
       translate(point.x + 10, point.y - 10); // Move to intersection point
 
        // Draw white background rectangle to mask grey line
-      fill(225); // White color
+      fill(255); // White color
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill(0); // Black color for the shape
+      fill("red"); // Black color for the shape
 
 beginShape();
   vertex(-9, -9);
@@ -277,7 +277,7 @@ endShape(CLOSE);
 
 
 
-fill(0)
+ fill("red");
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -287,7 +287,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
-fill(0)
+ fill("red");
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
@@ -324,7 +324,7 @@ function drawGreenArrowheads() {
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill(0); // Black color for the shape
+      fill("green"); // Black color for the shape
 
 beginShape();
   vertex(-9, -9);
@@ -352,7 +352,7 @@ endShape(CLOSE);
 
 
 
-fill(0)
+fill("green");
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -362,7 +362,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
-fill(0)
+fill("green");
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
@@ -478,11 +478,11 @@ function drawCircleAndText(y, circleColor, textColor, textContent) {
 }
 
 // Draw the first circle and text
-drawCircleAndText(baseY, "crimson", 0, "Cross over distance");
+drawCircleAndText(baseY, "blue", 0, "Cross over distance");
 
 // Draw the second circle and text
 let secondY = baseY + 30; // Add vertical spacing for the second row
-drawCircleAndText(secondY, "purple", 0, "Critical Distance");
+drawCircleAndText(secondY, "red", 0, "Critical Distance");
 
 
 
@@ -495,7 +495,7 @@ drawCircleAndText(secondY, "purple", 0, "Critical Distance");
 
   //intersection points of curves
 
-  stroke("purple");
+  stroke("red");
   strokeWeight(15);
 
 
@@ -505,7 +505,7 @@ drawCircleAndText(secondY, "purple", 0, "Critical Distance");
     map(sqrt(85) / 9, 0, maxTime, gY + gH, gY)
   );
 
-  stroke("crimson");
+  stroke("blue");
   strokeWeight(15);
 
 
