@@ -1,16 +1,26 @@
+let firstX = null; // Variable to store the first x value
+
 function drawPin(x, y, pinWidth, pinHeight, hatDiameter) {
   // Draw the cylinder (pin body)
   fill(150); // Set color for the cylinder
-
-  if(x==1549.45){
- drawBlast(x + pinWidth / 2, y); // Call blast effect at the top of the pin
-  }else{
-      rect(x, y, pinWidth, pinHeight);
-  // Draw the hat (top rounded part)
-  fill(200); // Set color for the hat
-  ellipse(x + pinWidth / 2, y, hatDiameter, hatDiameter / 2);
+  if (firstX === null) {
+    // Store the first x value
+    firstX = x;
   }
 
+  if (x === firstX) {
+    // Call drawBlast for the first x value
+    drawBlast(x + pinWidth / 2, y);
+  } else {
+    // Action for all other x values
+    // Draw the cylinder (pin body)
+    fill(150); // Set color for the cylinder
+    rect(x, y, pinWidth, pinHeight);
+
+    // Draw the hat (top rounded part)
+    fill(200); // Set color for the hat
+    ellipse(x + pinWidth / 2, y, hatDiameter, hatDiameter / 2);
+  }
 }
 
 let blastRadius = 0;
