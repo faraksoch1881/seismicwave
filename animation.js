@@ -78,17 +78,17 @@ function drawGraph(oX, oY, xN, yN, xAxisTitle, yAxisTitle) {
   }
 
   //y-scale (inverted)
-  let xGap = 5;
-  let x1 = oX - xGap;
-  let x2 = oX + xGap;
-  for (let v = 0; v <= yN; v++) {
-    let y1, y2;
-    y1 = y2 = map(v, 0, yN, oY , oY- gH); // Invert by switching the map range
-    line(x1, y1, x2, y2);
-    // y-axis labels
-    textAlign(RIGHT, CENTER);
-    text(v, oX - 10, y1); // Add some space to the left of the axis for the text
-  }
+ let xGap = 5;
+let x1 = oX - xGap;
+let x2 = oX + xGap;
+for (let v = 0; v <= yN; v++) {
+  let y1, y2;
+  y1 = y2 = map(v, 0, yN, oY - gH, oY); // Start from top (0) to bottom (yN)
+  line(x1, y1, x2, y2);
+  // y-axis labels
+  textAlign(RIGHT, CENTER);
+  text(v, oX - 10, y1); // Add some space to the left of the axis for the text
+}
 
   // Background grid lines for x-axis
   stroke(220); // Grey color for the lines
@@ -126,22 +126,28 @@ function drawCurve(points, color) {
   beginShape();
 
   for (let point of points) {
- 
     // Only draw red and blue lines if x > 10
     if ((color === "red" || color === "blue") && point.x <= 10) {
       continue; // Skip this point if x <= 10
     }
 
     let x = map(point.x, 0, maxDist, gX, gX + gW);
-    let y = map(point.y, 0, maxTime, gY + gH, gY);
-    vertex(x, y);
+    let y = map(point.y, 0, maxTime, gY, gY + gH);
+
+    // Check if the point is within the bounds of the rectangle
+    if (x >= gX && x <= gX + gW && y >= gY && y <= gY + gH) {
+      vertex(x, y);
+    }
   }
+
   endShape();
   pop();
 }
 
+
 let intersectionPoints = []; // Store intersection points persistently
 let intersectedLines = new Set(); // Track intersected lines
+
 
 function checkIntersection(points, color) {
   let spacing = gW / 25; // Adjust according to the number of grey lines
@@ -150,15 +156,14 @@ function checkIntersection(points, color) {
     for (let i = 1; i < 25; i++) {
       let xPosition = gX + i * spacing;
 
-      // Check if this point is near the grey line and if this line has not been intersected before
       if (abs(x - xPosition) < 5 && !intersectedLines.has(`${color}-${i}`)) {
         intersectionPoints.push({
           x: xPosition,
-          y: map(point.y, 0, maxTime, gY + gH, gY),
-          color: color, // Track color to differentiate shapes
-          time: millis() // Store the current time of intersection
+          y: map(point.y, 0, maxTime, gY, gY + gH), // Flipped y-axis
+          color: color,
+          time: millis(),
         });
-        intersectedLines.add(`${color}-${i}`); // Use a unique identifier for each line and color
+        intersectedLines.add(`${color}-${i}`);
         break;
       }
     }
@@ -175,7 +180,7 @@ function drawBlueArrowheads() {
     // Only draw arrowheads after the fifth intersection point for the red line
     if (i >= 2) {
       push();
-      translate(point.x + 10, point.y - 10); // Move to intersection point
+      translate(point.x + 10, point.y +5); // Move to intersection point
 
        // Draw white background rectangle to mask grey line
       fill(225); // White color
@@ -252,7 +257,7 @@ function drawRedArrowheads() {
     // Only draw arrowheads after the fifth intersection point for the red line
     if (i >= 8) {
       push();
-      translate(point.x + 10, point.y - 10); // Move to intersection point
+      translate(point.x + 10, point.y +5); // Move to intersection point
 
        // Draw white background rectangle to mask grey line
       fill(255); // White color
@@ -308,10 +313,6 @@ vertex(-10, 20);              // Bottom left corner
 endShape(CLOSE);
 
 
-
-
-
-
       pop();
 
     }
@@ -327,7 +328,7 @@ function drawGreenArrowheads() {
     // Only draw if 0.5 seconds (500 milliseconds) have passed since the intersection
     if (millis() - point.time > 0) {
       push();
-      translate(point.x + 10, point.y - 10); // Move to intersection point
+      translate(point.x + 10, point.y+5 ); // Move to intersection point
       
       // Draw white background rectangle to mask grey line
       fill(225); // White color
@@ -488,11 +489,11 @@ function drawCircleAndText(y, circleColor, textColor, textContent) {
 }
 
 // Draw the first circle and text
-drawCircleAndText(baseY, "blue", 0, "Cross over distance");
+drawCircleAndText(baseY, "blue", 0, "Critical Distance");
 
 // Draw the second circle and text
 let secondY = baseY + 30; // Add vertical spacing for the second row
-drawCircleAndText(secondY, "red", 0, "Critical Distance");
+drawCircleAndText(secondY, "red", 0, "Cross over distance");
 
 
 
@@ -509,10 +510,11 @@ drawCircleAndText(secondY, "red", 0, "Critical Distance");
   strokeWeight(15);
 
 
+
   //red-green intersection
   point(
     map(40 * sqrt(85), 0, maxDist, gX, gX + gW),
-    map(sqrt(85) / 9, 0, maxTime, gY + gH, gY)
+    map(sqrt(85) / 9, 0, maxTime, gY , gY+ gH)
   );
 
   stroke("blue");
@@ -522,7 +524,7 @@ drawCircleAndText(secondY, "red", 0, "Critical Distance");
   //red-blue intersection
   point(
     map(240 * sqrt(5 / 17), 0, maxDist, gX, gX + gW),
-    map((11 / 9) * sqrt(5 / 17), 0, maxTime, gY + gH, gY)
+    map((11 / 9) * sqrt(5 / 17), 0, maxTime, gY , gY+ gH)
   );
 }
 
