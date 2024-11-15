@@ -65,23 +65,24 @@ function drawGraph(oX, oY, xN, yN, xAxisTitle, yAxisTitle) {
   rect(gX, gY, gW, gH);
 
   //x-scale
-  let yGap = 5;
-  let y1 = oY - yGap;
-  let y2 = oY + yGap;
-  for (let v = 0; v <= xN; v++) {
-    let x1, x2;
-    x1 = x2 = map(v, 0, xN, oX, oX + gW);
-    line(x1, y1, x2, y2);
-    // x-axis labels
-    textAlign(CENTER, TOP);
-    text(v, x1, oY + 15); // Add some space below the axis for the text
-  }
+// x-scale (increments of 5)
+let yGap = 5;
+let y1 = oY - yGap;
+let y2 = oY + yGap;
+for (let v = 0; v <= xN; v += 5) { // Increment by 5
+  let x1, x2;
+  x1 = x2 = map(v, 0, xN, oX, oX + gW);
+  line(x1, y1, x2, y2);
+  // x-axis labels
+  textAlign(CENTER, TOP);
+  text(v, x1, oY + 15); // Add some space below the axis for the text
+}
 
-  //y-scale (inverted)
- let xGap = 5;
+// y-scale (increments of 5)
+let xGap = 5;
 let x1 = oX - xGap;
 let x2 = oX + xGap;
-for (let v = 0; v <= yN; v++) {
+for (let v = 0; v <= yN; v += 5) { // Increment by 5
   let y1, y2;
   y1 = y2 = map(v, 0, yN, oY - gH, oY); // Start from top (0) to bottom (yN)
   line(x1, y1, x2, y2);
