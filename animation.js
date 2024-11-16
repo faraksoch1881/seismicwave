@@ -173,7 +173,7 @@ function checkIntersection(points, color) {
 
 
 function drawBlueArrowheads() {
-  fill(0); // Black color for the shape
+   let alphaValue = arrowheadTransparency; // Get current transparency
   noStroke();
    let blueIntersections = intersectionPoints.filter(p => p.color === "blue");
  for (let i = 0; i < blueIntersections.length; i++) {
@@ -188,7 +188,7 @@ function drawBlueArrowheads() {
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill("blue"); // Black color for the shape
+      fill(0, 0, 255, alphaValue); // Blue color with transparency
 
 beginShape();
   vertex(-9, -9);
@@ -216,7 +216,7 @@ endShape(CLOSE);
 
 
 
- fill("blue"); 
+ fill(0, 0, 255, alphaValue); // Blue color with transparency 
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -226,7 +226,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
- fill("blue"); 
+ fill(0, 0, 255, alphaValue); // Blue color with transparency
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
@@ -249,7 +249,7 @@ endShape(CLOSE);
 
 
 function drawRedArrowheads() {
-  fill(0); // Black color for the shape
+   let alphaValue = arrowheadTransparency; // Get current transparency
   noStroke();
    let redIntersections = intersectionPoints.filter(p => p.color === "red");
  for (let i = 0; i < redIntersections.length; i++) {
@@ -265,7 +265,7 @@ function drawRedArrowheads() {
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill("red"); // Black color for the shape
+       fill(255, 0, 0, alphaValue); // Red color with transparency
 
 beginShape();
   vertex(-9, -9);
@@ -293,7 +293,7 @@ endShape(CLOSE);
 
 
 
- fill("red");
+ fill(255, 0, 0, alphaValue); // Red color with transparency
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -303,7 +303,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
- fill("red");
+ fill(255, 0, 0, alphaValue); // Red color with transparency
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
@@ -322,7 +322,7 @@ endShape(CLOSE);
 
 
 function drawGreenArrowheads() {
-  fill(0); // Black color for the shape
+   let alphaValue = arrowheadTransparency; // Get current transparency
   noStroke();
   let greenIntersections = intersectionPoints.filter(p => p.color === "green");
   for (let point of greenIntersections) {
@@ -336,7 +336,7 @@ function drawGreenArrowheads() {
       rect(-10, -10, 2, 20); // Rectangle covers the area between top left and bottom left
       
       // Draw the teardrop/arrow-like shape
-      fill("green"); // Black color for the shape
+      fill(0, 255, 0, alphaValue); // Green color with transparency
 
 beginShape();
   vertex(-9, -9);
@@ -364,7 +364,7 @@ endShape(CLOSE);
 
 
 
-fill("green");
+fill(0, 255, 0, alphaValue); // Green color with transparency
 beginShape();
 vertex(-18, -13);               // Tip of the first arrow (pointing right)
 vertex(-20, -15);               // Tip of the first arrow (pointing right)
@@ -374,7 +374,7 @@ vertex(-14, -15);               // Center of the base (left side)
 vertex(-10, -10);              // Bottom left corner
 endShape(CLOSE);
 
-fill("green");
+fill(0, 255, 0, alphaValue); // Green color with transparency
 beginShape();
 vertex(-18, 17);               // Tip of the first arrow (pointing right)
 vertex(-20, 15);               // Tip of the first arrow (pointing right)
