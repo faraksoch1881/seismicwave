@@ -1,5 +1,5 @@
 let aWidth, aHeight, gX, gY, gW, gH;
-let slider;
+let slider, transparencySlider;
 let v1 = 330,
   v2 = 600,
   h = 100;
@@ -15,19 +15,40 @@ let lW = 1300,
 let modeToggle;
 
 let currentMode = 'default';
+
+
+
 function setup() {
   aWidth = windowWidth;
   aHeight = windowHeight;
   gW = aWidth * 0.5;    // Graph width as 50% of canvas width
   gH = aHeight * 0.5;   // Graph height as 50% of canvas height
   gX = aWidth * 0.05;   // Offset from the left of canvas
-  gY = aHeight * 0.05;  // Offset from the top of canvas
+  gY = 100;  // Offset from the top of canvas
 
   createCanvas(aWidth, aHeight);
+
+   // Draw text for transparency slider
+  valueDisplayer = createP()
+  valueDisplayer.position(10,0)
+
+
+  valueDisplayer_1 = createP()
+  valueDisplayer_1.position(10,40)
+
   slider = createSlider(5, 500, 10);
-  slider.position(10, 10);
+  slider.position(10, 40);
   slider.size(500);
   slider.addClass("mySliders");
+
+
+
+  transparencySlider = createSlider(0, 255, 105); // Slider for transparency
+  transparencySlider.position(10, 80); // Position below the frame rate slider
+  transparencySlider.size(500);
+  transparencySlider.addClass("mySliders");
+
+
 
 
 
@@ -93,6 +114,14 @@ function draw() {
   frameRate(d);
 
   // Draw the graph
+  arrowheadTransparency = transparencySlider.value();
+  valueDisplayer.html('Speed')
+  valueDisplayer_1.html('Transparency')
+  
+
+
+
+
   drawGraph(gX, gY + gH, 25, 25, "Distance(km)", "Time (s)");
 
   // Call myAnimation with the current mode
